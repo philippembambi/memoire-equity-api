@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  equity-backend:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - equity-mongo
+    environment:
+      PORT: 8000
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_HOST: equity-mongo
+      DB_PORT: 27017
+      DB_NAME: equity-bd
+
+  equity-mongo:
+    image: mvertes/alpine-mongo:latest
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
